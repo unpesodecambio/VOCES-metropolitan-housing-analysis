@@ -1,3 +1,110 @@
-## this is a test
-# cambio 2
-# holaaaa
+from qgis.core import QgsExpression, QgsExpressionContext, QgsExpressionContextScope, QgsField
+from qgis.utils import iface
+from PyQt5.QtCore import QVariant
+from PyQt5.QtGui import QColor
+
+def agregar_campos(capa, campos):
+    # Eliminar campos existentes
+    campos_existentes = capa.fields().names()
+    campos_a_eliminar = [campo[0] for campo in campos if campo[0] in campos_existentes]
+    capa.dataProvider().deleteAttributes([capa.fields().indexFromName(campo) for campo in campos_a_eliminar])
+
+    # Agregar campos a la capa
+    capa.dataProvider().addAttributes([QgsField(campo[0], getattr(QVariant, campo[1])) for campo in campos])
+    capa.updateFields()
+
+def calcular_expresion(expresion, feature, exp_ctx):
+    expr = QgsExpression(expresion)
+    return expr.evaluate(exp_ctx)
+
+# Obtener la capa actual
+capa = iface.activeLayer()
+
+# Creación de campos
+campos = [
+    ('DIFPOP', 'Double'),
+    ('DIFVIV', 'Double'),
+    ('RELPOP', 'Double'),
+    ('RELVIV', 'Double'),
+    ('CVEPOP', 'String'),
+    ('CVEVIV', 'String'),
+    ('CVE', 'String'),
+    ('TIPOLOGIA', 'String'),
+    ('area_ha', 'Double'),
+    ('FILTRADO', 'Double')
+]
+
+# Agregar campos a la capa
+agregar_campos(capa, campos)
+
+# Llenado de información
+with edit(capa):
+    for feature in capa.getFeatures():
+        # Calcular DIFPOP
+        feature['DIFPOP'] = feature['POPTOT2020'] - feature['POPTOT2010']
+
+        # Calcular DIFVIV
+        feature['DIFVIV'] = feature['VIVTOT2020'] - feature['VIVTOT2010']
+
+        # Calcular RELPOP
+        feature['RELPOP'] = feature['DIFPOP'] / (feature['POPTOT2010'] if feature['POPTOT2010'] != 0 else 1)
+
+        # Calcular RELVIV
+        feature['RELVIV'] = feature['DIFVIV'] / (feature['VIVTOT2010'] if feature['VIVTOT2010'] != 0 else 1)
+
+        # Calcular CVEPOP
+        feature['CVEPOP'] = 'A' if feature['RELPOP'] < -0.000000001 else 'B'
+
+        # Calcular CVEVIV
+        if feature['RELVIV'] < -0.075:
+            feature['CVEVIV'] = 1
+        elif -0.075 <= feature['RELVIV'] <= 0.075:
+            feature['CVEVIV'] = 2
+        else:
+            feature['CVEVIV'] = 3
+
+        # Calcular CVE
+        feature['CVE'] = str(feature['CVEPOP']) + str(feature['CVEVIV'])
+
+        # Calcular TIPOLOGIA
+        feature['TIPOLOGIA'] = 'DH' if feature['POPTOT2020'] == 0 else ('B3' if feature['POPTOT2010'] == 0 and feature['VIVTOT2010'] == 0 and feature['TIPOLOGIA'] == 'B3' else feature['CVE'])
+
+        # Calcular area_ha
+        feature['area_ha'] = feature.geometry().area() / 10000
+
+        # Calcular FILTRADO
+        feature['FILTRADO'] = feature['VIVTOT2020'] / (feature['area_ha'] ** 2) if feature['area_ha'] != 0 else 0
+
+        # Actualizar la capa
+        capa.updateFeature(feature)
+
+# Filtrado de información
+filtro_expr = QgsExpression('FILTRADO >= 0.125')
+capa.setSubsetString(filtro_expr.expression())
+
+# Crear un símbolo de relleno sin contorno
+def createSimpleFillSymbol(color):
+    symbol = QgsFillSymbol.createSimple({'color': color, 'style': 'solid'})
+    symbol.symbolLayer(0).setStrokeStyle(Qt.NoPen)
+    return symbol
+
+# Crear una capa categorizada
+categoria = QgsRendererCategory('DH', createSimpleFillSymbol('#882A1C'), 'DH')
+categoria1 = QgsRendererCategory('A1', createSimpleFillSymbol('#E33F22'), 'A1')
+categoria2 = QgsRendererCategory('A2', createSimpleFillSymbol('#E5B636'), 'A2')
+categoria3 = QgsRendererCategory('A3', createSimpleFillSymbol('#FAF36A'), 'A3')
+categoria4 = QgsRendererCategory('B1', createSimpleFillSymbol('#CAEA60'), 'B1')
+categoria5 = QgsRendererCategory('B2', createSimpleFillSymbol('#60D512'), 'B2')
+categoria6 = QgsRendererCategory('B3', createSimpleFillSymbol('#39781C'), 'B3')
+categoria7 = QgsRendererCategory('B3\'', createSimpleFillSymbol('#254D12'), 'B3\'')
+
+# Lista de categorías
+categorias = [categoria, categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7]
+
+# Configurar el renderer categorizado
+renderer = QgsCategorizedSymbolRenderer('TIPOLOGIA', categorias)
+capa.setRenderer(renderer)
+
+# Aplicar el cambio de simbología
+iface.layerTreeView().refreshLayerSymbology(capa.id())
+iface.mapCanvas().refreshAllLayers()
