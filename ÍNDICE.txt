@@ -1,0 +1,11 @@
+01 - Tratamiento de DENUE - Obtención de unidades económicas con campo empleados
+02 - Metodología Subtipologías LOCALIDAD - Tipologías integradas para VIV y UE
+03 - Metodología Subtipologías MANZANA - Tipologías integradas para VIV y UE - REQUIERE QGIS
+04
+05 - Incorporación equipamientos - Tratamiento de equipamientos del 2020 e incorporación a nivel manzana - REQUIERE QGIS
+06
+07
+08
+09 - Integración MUN y METRO - Toma base de datos a nivel mzn y la integra en datos MUN y METRO
+10 - Factorial Mérida - Toma las bases de datos con indicadores integrados a nivel manzana de determinada Metrópoli y genera correlaciones y factores
+11 - Factorial Nacional - Toma las bases de datos con indicadores integrados a nivel Municipio y Metrópoli y genera correlaciones y factores
