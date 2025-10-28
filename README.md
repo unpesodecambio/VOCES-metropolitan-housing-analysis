@@ -3,6 +3,5 @@
 **Proyecto CONACHYT (PRONACES), desde la Universidad de Guadalajara**   
 *Alejandro Flores Cisneros*   
 
-![imagen](imagenes/dataset-card.jpg)
 
 ---
