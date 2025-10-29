@@ -14,7 +14,7 @@ The project focuses on automating metropolitan-scale analyses of **housing** and
 
 **Research Assistants**  
 - **Alejandro Flores Cisneros** - Urban Planner & Geospatial Data Analyst *(Python automation and technical analysis)*  
-- **Gerardo Rubalcava** - Undergraduate Research Assistant *(technical and analytical support)*  
+- **Gerardo Rubalcava** - Undergraduate Urban Planner & Geospatial Data Analyst *(GIS and analytical support)*  
 
 ---
 
@@ -83,7 +83,7 @@ This repository reflects a collaborative effort combining **theoretical developm
 | **Dr. Juan Demerutis** | Principal Investigator | University of Guadalajara |
 | **Dr. Luis F. Álvarez Villalobos** | Co-Investigator | University of Guadalajara |
 | **Alejandro Flores Cisneros** | Research Assistant – Data Automation | University of Guadalajara |
-| **Gerardo Rubalcava** | Research Assistant – Technical Support | University of Guadalajara |
+| **Gerardo Rubalcava** | Research Assistant – GIS Specialist | University of Guadalajara |
 
 ---
 
