@@ -9,12 +9,12 @@ The project focuses on automating metropolitan-scale analyses of **housing** and
 ## 🎓 Project overview
 
 **Principal Investigators**  
-- **Dr. Juan Demerutis** – Professor and Researcher in Urban and Environmental Planning  
-- **Dr. Luis Fernando Álvarez Villalobos** – Professor and Researcher in Political Science  
+- **Dr. Juan Demerutis** - Professor and Researcher in Urban and Environmental Planning  
+- **Dr. Luis Fernando Álvarez Villalobos** - Professor and Researcher in Political Science  
 
 **Research Assistants**  
-- **Alejandro Flores Cisneros** – Urban Planner & Geospatial Data Analyst *(Python automation and technical analysis)*  
-- **Gerardo Rubalcava** – Undergraduate Research Assistant *(technical and analytical support)*  
+- **Alejandro Flores Cisneros** - Urban Planner & Geospatial Data Analyst *(Python automation and technical analysis)*  
+- **Gerardo Rubalcava** - Undergraduate Research Assistant *(technical and analytical support)*  
 
 ---
 
@@ -52,11 +52,11 @@ To develop and automate a **replicable methodology** for analyzing metropolitan 
 ## 🧰 Tools and technologies
 
 - **Python 3 / Jupyter Notebooks**  
-- `pandas`, `numpy` — data manipulation  
-- `geopandas`, `contextily` — geospatial processing and mapping  
-- `scikit-learn` — statistical and factor analysis  
-- `matplotlib`, `seaborn` — visualization and heatmaps  
-- `os`, `glob` — file automation and batch processing  
+- `pandas`, `numpy` - data manipulation  
+- `geopandas`, `contextily` - geospatial processing and mapping  
+- `scikit-learn` - statistical and factor analysis  
+- `matplotlib`, `seaborn` - visualization and heatmaps  
+- `os`, `glob` - file automation and batch processing  
 
 ---
 
