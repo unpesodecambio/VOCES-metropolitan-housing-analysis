@@ -14,7 +14,7 @@ The project focuses on automating metropolitan-scale analyses of **housing** and
 
 **Research Assistants**  
 - **Alejandro Flores Cisneros** - Urban Planner & Geospatial Data Analyst *(Python automation and technical analysis)*  
-- **Gerardo Rubalcava** - Undergraduate Urban Planner & Geospatial Data Analyst *(GIS and analytical support)*  
+- **Gerardo Rubalcava** - Undergraduate Urban Planner & Geospatial Data Analyst *(GIS Specialist and analytical support)*  
 
 ---
 
